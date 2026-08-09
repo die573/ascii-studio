@@ -23,7 +23,7 @@ jobs:
         run: bundle exec rake test
       - name: Audit Ruby dependencies
         run: bundle exec bundle-audit check --update
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Check browser modules
