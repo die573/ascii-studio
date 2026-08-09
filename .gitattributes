@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+*.jpg binary
+*.png binary
+*.gif binary
+*.webp binary
+
+bin/ascii text eol=lf
+bin/ascii-studio text eol=lf

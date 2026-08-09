@@ -1,0 +1,15 @@
+/.bundle/
+/vendor/
+/tmp/
+/coverage/
+/benchmarks/results/*
+!/benchmarks/results/.gitkeep
+/native/zig/zig-out/
+/native/zig/.zig-cache/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.swp
+*.gem
+*.log

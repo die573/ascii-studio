@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ruby:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install --yes libvips-dev
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.6"
+          bundler-cache: true
+      - name: Test Ruby and HTTP integration
+        run: bundle exec rake test
+      - name: Audit Ruby dependencies
+        run: bundle exec bundle-audit check --update
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check browser modules
+        shell: bash
+        run: find web/public/js -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Smoke-test CLI
+        run: bundle exec ruby bin/ascii examples/sample.jpg --width 20 --engine ruby
+
+  zig:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: "0.16.0"
+      - name: Test native backend
+        working-directory: native/zig
+        run: zig build test

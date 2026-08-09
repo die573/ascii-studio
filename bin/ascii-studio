@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require "optparse"
+require "ascii_studio"
+
+abort "Usage: ascii-studio play FILE.aaf [--loop] [--fps N]" unless ARGV.shift == "play"
+options = {loop: false}
+OptionParser.new { |p| p.on("--loop") { options[:loop] = true }; p.on("--fps N", Float) { |v| options[:fps] = v } }.parse!(ARGV)
+abort "Missing AAF file" unless ARGV.one?
+project = AsciiStudio::AAF::Reader.new.read(ARGV.first)
+renderer = AsciiStudio::Renderers::Ansi.new
+begin
+  loop do
+    project.animation.frames.each do |frame|
+      print "\e[H\e[2J", renderer.render(frame.flatten), "\n"
+      sleep(options[:fps] ? 1.0 / options[:fps] : frame.duration_ms / 1000.0)
+    end
+    break unless options[:loop] || project.animation.loop
+  end
+rescue Interrupt
+  print "\e[0m\n"
+end
