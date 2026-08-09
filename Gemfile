@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "ffi", "~> 1.17"
 gem "faye-websocket", "~> 0.11"
-gem "puma", "~> 7.2.1"
+gem "puma", "~> 8.0.2"
 gem "roda", "~> 3.88"
 gem "ruby-vips", "~> 2.2"
 
