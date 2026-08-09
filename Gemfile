@@ -7,7 +7,7 @@ gem "roda", "~> 3.88"
 gem "ruby-vips", "~> 2.2"
 
 group :development, :test do
-  gem "minitest", "~> 5.25"
+  gem "minitest", "~> 6.0"
   gem "rack-test", "~> 2.2"
   gem "bundler-audit", "~> 0.9", require: false
 end
