@@ -8,7 +8,7 @@ gem "ruby-vips", "~> 2.2"
 
 group :development, :test do
   gem "minitest", "~> 5.25"
-  gem "rack-test", "~> 2.2"
+  gem "rack-test", "~> 2.3"
   gem "bundler-audit", "~> 0.9", require: false
 end
 
